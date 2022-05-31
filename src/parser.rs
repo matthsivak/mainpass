@@ -1,3 +1,5 @@
+const DEBUG: bool = false;
+
 const LETTERS: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const DIGITS: &str = "0123456789";
 const SYMBOLS: &str = "[].=\"\\";
@@ -60,7 +62,9 @@ impl Lexer {
       self.advance();
     }
     self.advance();
-    println!("str {}", self.buffer);
+    if DEBUG {
+      println!("str {}", self.buffer);
+    }
     self.tokens.push(Token {
       token_type: TokenType::String(self.buffer.clone()),
       whitespace: self.whitespace.clone(),
@@ -82,7 +86,9 @@ impl Lexer {
       self.advance();
     }
     self.advance();
-    println!("num {}", self.buffer);
+    if DEBUG {
+      println!("num {}", self.buffer)
+    };
     self.tokens.push(Token {
       token_type: TokenType::Number(self.buffer.parse().unwrap()),
       whitespace: self.whitespace.clone(),
@@ -100,7 +106,9 @@ impl Lexer {
       self.buffer += &self.current_char.to_string();
       self.advance();
     }
-    println!("id  {}", self.buffer);
+    if DEBUG {
+      println!("id  {}", self.buffer);
+    }
     self.tokens.push(Token {
       token_type: TokenType::Identifier(self.buffer.clone()),
       whitespace: self.whitespace.clone(),
@@ -111,7 +119,9 @@ impl Lexer {
 
   fn make_symbol(&mut self) {
     self.buffer += &self.current_char.to_string();
-    println!("sym {}", self.buffer);
+    if DEBUG {
+      println!("sym {}", self.buffer);
+    }
     self.tokens.push(Token {
       token_type: TokenType::Symbol(self.buffer.clone()),
       whitespace: self.whitespace.clone(),

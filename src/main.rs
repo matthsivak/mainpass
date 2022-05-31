@@ -9,12 +9,19 @@ use crossterm::{
 
 mod parser;
 
+const DEBUG: bool = false;
+
 fn main() {
   let f = fs::read_to_string("test/first.toml").unwrap();
-  println!("{}\n", f);
+  if DEBUG {
+    println!("{}\n", f);
+  }
   let mut p = parser::Lexer::new(f);
-  for t in p.tokenize() {
-    println!("{:?}", t);
+  let tokens = p.tokenize();
+  if DEBUG {
+    for t in tokens {
+      println!("{:?}", t);
+    }
   }
 }
 
