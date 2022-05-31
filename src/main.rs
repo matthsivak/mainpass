@@ -7,7 +7,16 @@ use crossterm::{
   terminal::{disable_raw_mode, enable_raw_mode, is_raw_mode_enabled, Clear, ClearType},
 };
 
-fn main() {}
+mod parser;
+
+fn main() {
+  let f = fs::read_to_string("test/first.toml").unwrap();
+  println!("{}\n", f);
+  let mut p = parser::Lexer::new(f);
+  for t in p.tokenize() {
+    println!("{:?}", t);
+  }
+}
 
 fn clear() {}
 
@@ -32,8 +41,6 @@ welcome = welcome
     Ok(..) => true,
   }
 }
-
-
 
 fn load_file(username: String, password: String) -> Result<String, String> {
   let mc = new_magic_crypt!(&password, 256);
