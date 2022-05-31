@@ -1,0 +1,8 @@
+[section]
+key = "val"
+key2 = 69
+
+[section2]
+key = "val"
+  [inner-section]
+  key = "val"

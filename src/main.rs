@@ -12,6 +12,8 @@ use magic_crypt::{new_magic_crypt, MagicCryptTrait};
 use std::fs;
 use std::io::{stdout, Write};
 
+mod parser;
+
 fn main() {
   clear();
   register();
