@@ -16,7 +16,23 @@ use magic_crypt::{new_magic_crypt, MagicCryptTrait};
 use std::fs;
 use std::io::{stdout, Write};
 
+mod parser;
+
+const DEBUG: bool = false;
+
 fn main() {
+  let f = fs::read_to_string("test/first.toml").unwrap();
+  if DEBUG {
+    println!("{}\n", f);
+  }
+  let mut p = parser::Lexer::new(f);
+  let tokens = p.tokenize();
+  if DEBUG {
+    for t in tokens {
+      println!("{:?}", t);
+    }
+  }
+
   clear();
   register();
   disable_raw_mode();
