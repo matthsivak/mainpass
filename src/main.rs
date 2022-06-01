@@ -12,16 +12,18 @@ use magic_crypt::{new_magic_crypt, MagicCryptTrait};
 use std::fs;
 use std::io::{stdout, Write};
 
-mod parser;
+mod lexer;
 
-const DEBUG: bool = false;
+pub use lexer::Lexer;
+
+const DEBUG: bool = true;
 
 fn main() {
-  let f = fs::read_to_string("test/first.toml").unwrap();
+  let f = fs::read_to_string("Cargo.toml").unwrap();
   if DEBUG {
     println!("{}\n", f);
   }
-  let mut p = parser::Lexer::new(f);
+  let mut p = Lexer::new(f);
   let tokens = p.tokenize();
   if DEBUG {
     for t in tokens {
@@ -29,9 +31,9 @@ fn main() {
     }
   }
 
-  clear();
-  register();
-  disable_raw_mode();
+  // clear();
+  // register();
+  // disable_raw_mode();
 }
 
 fn clear() {
@@ -71,7 +73,7 @@ fn print_login_register_menu(item: i8) {
     r"
 ({}) Login
 ({}) Register
-            ",
+    ",
     i1, i2
   );
 
